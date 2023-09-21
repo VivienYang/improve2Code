@@ -3,8 +3,11 @@ var slice = Array.prototype.slice
 function bind(asThis){
   var fn = this
   var args1 = slice.call(arguments,1)
+  if(typeof fn !== 'function'){
+    throw new Error('bind必须调用在函数身上')
+  }
   return function(){
-    var args2=slice.call(arguments,0)
+    var args2=slice.call(arguments,0) // 不可以省略，伪数组转成数组
     return fn.apply(asThis,args1.concat(args2))
   }
 }
